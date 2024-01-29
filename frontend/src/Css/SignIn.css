@@ -1,0 +1,64 @@
+.form-background{
+    padding: 20px;
+    text-align: center;
+}
+
+.form-logo{
+    width: 150px;
+    height: 150px;
+}
+
+.form-input{
+    padding: 10px;
+    font-size: 15px;
+    width: 390px;
+    height: 50px;
+    margin: 10px;
+}
+
+.form-button{
+    color: white;
+    background-color: #41c741;
+    border: black;
+    padding: 10px;
+    font-size: 15px;
+    width: 390px;
+    height: 50px;
+    margin: 10px;
+}
+
+.form-find-div{
+    margin: 15px;
+}
+
+.form-find{
+    margin: 10px;
+    font-size: 13px;
+    color: black;
+}
+
+.from-signup-btn{
+    width: 45px;
+    height: 45px;
+    margin: 15px;
+    border: white;
+    filter: drop-shadow(2px 2px 2px #c0bfbf)
+}
+
+.hr-sect {
+    display: flex;
+    flex-basis: 100%;
+    align-items: center;
+    font-size: 13px;
+    margin: 8px 0px;
+}
+.hr-sect::before,
+.hr-sect::after {
+    content: "";
+    flex-grow: 1;
+    background: rgba(0, 0, 0, 0.35);
+    height: 1px;
+    font-size: 0px;
+    line-height: 0px;
+    margin: 0px 16px;
+}
