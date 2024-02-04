@@ -1,24 +1,46 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import '../Css/SignIn.css';
-import googleBtn from '../Img/web_neutral_sq_na@1x.png';
-import kakaoBtn from '../Img/kakaotalk_sharing_btn_small.png'
-import naverBtn from '../Img/btnG_icon_square.png'
-import testLogo from '../Img/size_s_icon_137187.png'
-import { KakaoAuthProvider } from 'react-kakao-login';
+import { useNavigate } from 'react-router-dom';
+import '../css/SignIn.css';
+import googleBtn from '../img/web_neutral_sq_na@1x.png';
+import kakaoBtn from '../img/kakaotalk_sharing_btn_small.png'
+import naverBtn from '../img/btnG_icon_square.png'
+import testLogo from '../img/size_s_icon_137187.png'
+import { signup } from '../util/APIUtils';
+import { GOOGLE_AUTH_URL, NAVER_AUTH_URL, KAKAO_AUTH_URL } from '../constants/index';
 
-function SignUp(props){
 
-    const API_BASE_URL = 'http://localhost:8080';
-    const ACCESS_TOKEN = 'accessToken';
 
-    const OAUTH2_REDIRECT_URI = 'http://localhost:3000/oauth2/redirect'
+function SignUp(props) {
 
-    const GOOGLE_AUTH_URL = API_BASE_URL + '/oauth2/authorize/google?redirect_uri=' + OAUTH2_REDIRECT_URI;
-    const NAVER_AUTH_URL = API_BASE_URL + '/oauth2/authorize/naver?redirect_uri=' + OAUTH2_REDIRECT_URI;
-    const KAKAO_AUTH_URL = API_BASE_URL + '/oauth2/authorize/kakao?redirect_uri=' + OAUTH2_REDIRECT_URI;
+    const navigate = useNavigate();
 
-    return(
+    const [formData, setFormData] = useState({
+        name: '',
+        email: '',
+        password: ''
+    });
+
+    const handleInputChange = (e) => {
+        const { name, value } = e.target;
+        setFormData(data => ({
+            ...data,
+            [name]: value
+        }));
+    }
+
+    const handleSubmit = () => {
+        signup(formData)
+            .then(() => {
+                navigate('/login');
+                props.onHide();
+            })
+            .catch(error => {
+                alert('Signup Failed!');
+            });
+    };
+
+    return (
         <Modal
             {...props}
             aria-labelledby="contained-modal-title-vcenter"
@@ -80,10 +102,10 @@ function SignUp(props){
                         <a href={NAVER_AUTH_URL}>
                             <img className={"from-signup-btn"} src={naverBtn}/>
                         </a>
-                        <a href={GOOGLE_AUTH_URL}>
+                        <a href={KAKAO_AUTH_URL}>
                             <img className={"from-signup-btn"} src={kakaoBtn}/>
                         </a>
-                        <a href={KAKAO_AUTH_URL}>
+                        <a href={GOOGLE_AUTH_URL}>
                             <img className={"from-signup-btn"} src={googleBtn}/>
                         </a>
                     </div>

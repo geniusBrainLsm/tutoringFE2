@@ -3,11 +3,12 @@ import Navbar from "react-bootstrap/Navbar";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from 'react-bootstrap/Button';
-import '../Css/SignIn.css';
+import '../css/SignIn.css';
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
 
-function Header(){
+function Header(props){
+
     const [modalShowSignIn, setModalShowSignIn] = React.useState(false);
     const [modalShowSingUp, setModalShowSingUp] = React.useState(false);
 

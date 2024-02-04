@@ -1,10 +1,10 @@
 import React from 'react';
 import Modal from 'react-bootstrap/Modal';
-import '../Css/SignIn.css';
-import googleBtn from '../Img/web_neutral_sq_na@1x.png';
-import kakaoBtn from '../Img/kakaotalk_sharing_btn_small.png'
-import naverBtn from '../Img/btnG_icon_square.png'
-import testLogo from '../Img/size_s_icon_137187.png'
+import '../css/SignIn.css';
+import googleBtn from '../img/web_neutral_sq_na@1x.png';
+import kakaoBtn from '../img/kakaotalk_sharing_btn_small.png'
+import naverBtn from '../img/btnG_icon_square.png'
+import testLogo from '../img/size_s_icon_137187.png'
 function SignIn(props) {
 
     return (
