@@ -10,11 +10,13 @@ import OAuth2RedirectHandler from './oauth2/OAuth2RedirectHandler';
 function App() {
     return (
         <Router>
+            <Header />
             <Routes>
-                <Route path="/" element={<Header />} />
                 <Route path="/login" element={<SignIn />} />
                 <Route path="/signup" element={<SignUp />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
+                <Route path="/SignIn" element={<SignIn />} />
+
             </Routes>
         </Router>
     );

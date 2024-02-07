@@ -42,7 +42,7 @@ function SignIn(props) {
                     <div className={"form-find-div"}>
                         <a href="#" className={"form-find"}>아이디 찾기</a>
                         <a href="#1" className={"form-find"}>비밀번호 찾기</a>
-                        <a href="#1" className={"form-find"}>회원가입</a>
+                        <a href="/signup" className={"form-find"}>회원가입</a>
                     </div>
                     <div className={"hr-sect"}>
                         간편로그인
