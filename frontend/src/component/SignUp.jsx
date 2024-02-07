@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import {Link, useNavigate} from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import '../css/SignIn.css';
 import googleBtn from '../img/web_neutral_sq_na@1x.png';
 import kakaoBtn from '../img/kakaotalk_sharing_btn_small.png'
@@ -13,6 +13,10 @@ function SignUp(props) {
 
     const navigate = useNavigate();
 
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+
     const [formData, setFormData] = useState({
         name: '',
         email: '',
@@ -21,19 +25,32 @@ function SignUp(props) {
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
-        setFormData(data => ({
-            ...data,
-            [name]: value
-        }));
-    }
 
-    const handleSubmit = () => {
+        // 각각의 입력 필드에 대해 상태 업데이트
+        if (name === 'name') {
+            setName(value);
+        } else if (name === 'email') {
+            setEmail(value);
+        } else if (name === 'password') {
+            setPassword(value);
+        }
+    };
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+
+        const formData = {
+            name: name,
+            email: email,
+            password: password,
+        };
+
         signup(formData)
             .then(() => {
-                navigate('/login');     // 회원가입 성공 시 /loign url로 이동
+                navigate('/login'); // 회원가입 성공 시 /login url로 이동
                 props.onHide();
             })
-            .catch(error => {
+            .catch((error) => {
                 alert('Signup Failed!');
             });
     };
@@ -51,27 +68,30 @@ function SignUp(props) {
                         <div>
                             <input
                                 className={"form-input"}
-                                value={formData.name}
+                                value={name}
                                 onChange={handleInputChange}
                                 type={"text"}
+                                name={"name"}
                                 placeholder={"이름"}
                             />
                         </div>
                         <div>
                             <input
                                 className={"form-input"}
-                                value={formData.email}
+                                value={email}
                                 onChange={handleInputChange}
                                 type={"text"}
+                                name={"email"}
                                 placeholder={"이메일"}
                             />
                         </div>
                         <div>
                             <input
                                 className={"form-input"}
-                                value={formData.password}
+                                value={password}
                                 onChange={handleInputChange}
-                                type={"text"}
+                                type={"password"}
+                                name={"password"}
                                 placeholder={"비밀번호"}
                             />
                         </div>
