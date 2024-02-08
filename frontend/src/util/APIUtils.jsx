@@ -34,17 +34,17 @@ export function getCurrentUser() {
     });
 }
 
-export function login(loginRequest) {
+export function signIn(signInRequest) {
     return request({
-        url: API_BASE_URL + "/login",
+        url: API_BASE_URL + "/signIn",
         method: 'POST',
-        body: JSON.stringify(loginRequest)
+        body: JSON.stringify(signInRequest)
     });
 }
 
-export function signup(signupRequest) {
+export function signUp(signupRequest) {
     return request({
-        url: API_BASE_URL + "/signup",
+        url: API_BASE_URL + "/signUp",
         method: 'POST',
         body: JSON.stringify(signupRequest)
     });

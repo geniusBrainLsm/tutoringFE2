@@ -4,8 +4,8 @@ import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Button from 'react-bootstrap/Button';
 import '../css/SignIn.css';
-import SignIn from "./SignIn";
-import SignUp from "./SignUp";
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 function Header(props){
 
@@ -28,14 +28,14 @@ function Header(props){
                         <Button variant="outline-dark" onClick={() => setModalShowSignIn(true)} style={{marginRight: '10px' }}>
                             로그인
                         </Button>
-                        <SignIn
+                        <SignInModal
                             show={modalShowSignIn}
                             onHide={() => setModalShowSignIn(false)}
                         />
                         <Button variant="success" onClick={() => setModalShowSingUp(true)}>
                             회원가입
                         </Button>
-                        <SignUp
+                        <SignUpModal
                             show={modalShowSingUp}
                             onHide={() => setModalShowSingUp(false)}
                         />

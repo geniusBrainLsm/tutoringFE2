@@ -6,10 +6,10 @@ import googleBtn from '../img/web_neutral_sq_na@1x.png';
 import kakaoBtn from '../img/kakaotalk_sharing_btn_small.png'
 import naverBtn from '../img/btnG_icon_square.png'
 import testLogo from '../img/size_s_icon_137187.png'
-import { signup } from '../util/APIUtils';
+import { signUp } from '../util/APIUtils';
 import { GOOGLE_AUTH_URL, NAVER_AUTH_URL, KAKAO_AUTH_URL } from '../constants/index';
 
-function SignUp(props) {
+function SignUpModal(props) {
 
     const navigate = useNavigate();
 
@@ -17,11 +17,11 @@ function SignUp(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        password: ''
-    });
+    // const [formData, setFormData] = useState({
+    //     name: '',
+    //     email: '',
+    //     password: ''
+    // });
 
     const handleInputChange = (e) => {
         const { name, value } = e.target;
@@ -45,9 +45,9 @@ function SignUp(props) {
             password: password,
         };
 
-        signup(formData)
+        signUp(formData)
             .then(() => {
-                navigate('/login'); // 회원가입 성공 시 /login url로 이동
+                navigate('/signin'); // 회원가입 성공 시 /signin url로 이동
                 props.onHide();
             })
             .catch((error) => {
@@ -110,9 +110,9 @@ function SignUp(props) {
                             </button>
                         </div>
                         <div className={"form-find-div"}>
-                            <a href="#" className={"form-find"}>아이디 찾기</a>
-                            <a href="#1" className={"form-find"}>비밀번호 찾기</a>
-                            <a href="/signup" className={"form-find"}>로그인</a>
+                            <a href="/" className={"form-find"}>아이디 찾기</a>
+                            <a href="/" className={"form-find"}>비밀번호 찾기</a>
+                            <a href="/SignInModal" className={"form-find"}>로그인</a>
                         </div>
                     </form>
                     <div className={"hr-sect"}>
@@ -135,4 +135,4 @@ function SignUp(props) {
     );
 }
 
-export default SignUp;
+export default SignUpModal;

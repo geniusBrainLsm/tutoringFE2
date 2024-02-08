@@ -21,7 +21,7 @@ function OAuth2RedirectHandler(props) {
             localStorage.setItem(ACCESS_TOKEN, token);
             navigate('/', { state: { from: location } });
         } else {
-            navigate('/login', {
+            navigate('/signIn', {
                 state: {
                     from: location,
                     error: error
