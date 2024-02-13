@@ -15,7 +15,7 @@ function SignInModal(props) {
     const [password, setPassword] = useState('');
 
     const handleInputChange = (e) => {
-        const { name, value } = e.target;
+        const { name, value } = e.target; // e.target에서 name과 value 속성을 추출
 
         // 각각의 입력 필드에 대해 상태 업데이트
         if (name === 'email') {
@@ -59,6 +59,7 @@ function SignInModal(props) {
                                 value={email}
                                 onChange={handleInputChange}
                                 type={"text"}
+                                name={"email"}
                                 placeholder={"이메일"}
                             />
                         </div>
@@ -67,7 +68,8 @@ function SignInModal(props) {
                                 className={"form-input"}
                                 value={password}
                                 onChange={handleInputChange}
-                                type={"text"}
+                                type={"password"}
+                                name={"password"}
                                 placeholder={"비밀번호"}
                             />
                         </div>
