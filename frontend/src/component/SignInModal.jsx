@@ -18,9 +18,9 @@ function SignInModal(props) {
         const { name, value } = e.target;
 
         // 각각의 입력 필드에 대해 상태 업데이트
-        if (email === 'email') {
+        if (name === 'email') {
             setEmail(value);
-        } else if (password === 'password') {
+        } else if (name === 'password') {
             setPassword(value);
         }
     };
@@ -77,8 +77,8 @@ function SignInModal(props) {
                             </button>
                         </div>
                         <div className={"form-find-div"}>
-                            <a href="#" className={"form-find"}>아이디 찾기</a>
-                            <a href="#1" className={"form-find"}>비밀번호 찾기</a>
+                            <a href="/" className={"form-find"}>아이디 찾기</a>
+                            <a href="/" className={"form-find"}>비밀번호 찾기</a>
                             <a href="/frontend/src/component/SignUpModal" className={"form-find"}>회원가입</a>
                         </div>
                     </form>
