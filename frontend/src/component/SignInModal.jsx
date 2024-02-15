@@ -7,6 +7,7 @@ import naverBtn from '../img/btnG_icon_square.png'
 import testLogo from '../img/size_s_icon_137187.png'
 import {useNavigate} from "react-router-dom";
 import { signIn } from "../util/APIUtils";
+import {GOOGLE_AUTH_URL, KAKAO_AUTH_URL, NAVER_AUTH_URL} from "../constants";
 function SignInModal(props) {
 
     const navigate = useNavigate();
@@ -34,15 +35,26 @@ function SignInModal(props) {
         };
 
         signIn(formData)
-            .then(() => {
+            .then(result => {
+                const response = signIn(formData);
+
+
+                // 서버에서 받은 토큰
+                //const token = response.data.token;
+                const token = result.accessToken;
+
+                // 토큰을 로컬스토리지에 저장
+                localStorage.setItem('accessToken', token);
                 navigate('/'); // 로그인 성공시 메인화면으로 이동
                 props.onHide();
             })
             .catch((error) => {
                 alert('SignIn Failed!');
+                console.log(error);
             });
+
     };
-        
+
     return (
         <Modal
             {...props}
@@ -81,20 +93,20 @@ function SignInModal(props) {
                         <div className={"form-find-div"}>
                             <a href="/" className={"form-find"}>아이디 찾기</a>
                             <a href="/" className={"form-find"}>비밀번호 찾기</a>
-                            <a href="/frontend/src/component/SignUpModal" className={"form-find"}>회원가입</a>
+                            <a href="/#" className={"form-find"}>회원가입</a>
                         </div>
                     </form>
                     <div className={"hr-sect"}>
                         간편로그인
                     </div>
                     <div>
-                        <a href="#">
+                        <a href={NAVER_AUTH_URL}>
                             <img className={"from-signup-btn"} src={naverBtn}/>
                         </a>
-                        <a href="#">
+                        <a href={KAKAO_AUTH_URL}>
                             <img className={"from-signup-btn"} src={kakaoBtn}/>
                         </a>
-                        <a href="#">
+                        <a href={GOOGLE_AUTH_URL}>
                             <img className={"from-signup-btn"} src={googleBtn}/>
                         </a>
                     </div>

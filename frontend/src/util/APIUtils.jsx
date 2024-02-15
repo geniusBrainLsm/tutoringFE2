@@ -35,13 +35,18 @@ export function getCurrentUser() {
 }
 
 export function signIn(signInRequest) {
-    return request({
-        url: API_BASE_URL + "/signIn",
-        method: 'POST',
-        body: JSON.stringify(signInRequest)
-    });
-}
 
+    return new Promise((resolve, reject) => {
+        request({
+            url: API_BASE_URL + "/signIn",
+            method: 'POST',
+            body: JSON.stringify(signInRequest)
+        })
+            .then(response => resolve(response))
+            .catch(error => reject(error))
+    });
+
+}
 export function signUp(signupRequest) {
     return request({
         url: API_BASE_URL + "/signUp",
