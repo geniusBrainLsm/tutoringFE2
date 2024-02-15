@@ -25,20 +25,31 @@ function Header(props){
                         <Nav.Link href="#5">커뮤니티</Nav.Link>
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
-                        <Button variant="outline-dark" onClick={() => setModalShowSignIn(true)} style={{marginRight: '10px' }}>
-                            로그인
-                        </Button>
-                        <SignInModal
-                            show={modalShowSignIn}
-                            onHide={() => setModalShowSignIn(false)}
-                        />
-                        <Button variant="success" onClick={() => setModalShowSingUp(true)}>
-                            회원가입
-                        </Button>
-                        <SignUpModal
-                            show={modalShowSingUp}
-                            onHide={() => setModalShowSingUp(false)}
-                        />
+                        {props.authenticated ? (
+                            // true
+                            <>
+                                <Button variant="outline-dark" onClick={() => setModalShowSignIn(true)} style={{ marginRight: '10px' }}>
+                                    마이페이지
+                                </Button>
+                                <SignInModal show={modalShowSignIn} onHide={() => setModalShowSignIn(false)} />
+                                <Button variant="success" onClick={() => setModalShowSingUp(true)}>
+                                    로그아웃
+                                </Button>
+                                <SignUpModal show={modalShowSingUp} onHide={() => setModalShowSingUp(false)} />
+                            </>
+                        ) : (
+                            // false
+                            <>
+                                <Button variant="outline-dark" onClick={() => setModalShowSignIn(true)} style={{ marginRight: '10px' }}>
+                                    로그인
+                                </Button>
+                                <SignInModal show={modalShowSignIn} onHide={() => setModalShowSignIn(false)} />
+                                <Button variant="success" onClick={() => setModalShowSingUp(true)}>
+                                    회원가입
+                                </Button>
+                                <SignUpModal show={modalShowSingUp} onHide={() => setModalShowSingUp(false)} />
+                            </>
+                        )}
                     </Navbar.Collapse>
                 </Container>
             </Navbar>
