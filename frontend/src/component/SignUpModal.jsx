@@ -17,12 +17,6 @@ function SignUpModal(props) {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    // const [formData, setFormData] = useState({
-    //     name: '',
-    //     email: '',
-    //     password: ''
-    // });
-
     const handleInputChange = (e) => {
         const { name, value } = e.target;
 
