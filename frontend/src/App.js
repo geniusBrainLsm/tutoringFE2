@@ -7,7 +7,9 @@ import SignUpModal from "./component/SignUpModal";
 import OAuth2RedirectHandler from './oauth2/OAuth2RedirectHandler';
 import { ACCESS_TOKEN } from './constants/index';
 import {getCurrentUser} from "./util/APIUtils";
-
+import RoomList from './component/RoomList';
+import Room from './component/Room';
+import RoomCreate from './component/RoomCreate';
 function App() {
 
     const [authenticated, setAuthenticated] = React.useState(false);
@@ -41,6 +43,11 @@ function App() {
             <Routes>
                 <Route path="/signIn" element={<SignInModal />} />
                 <Route path="/signUp" element={<SignUpModal />} />
+                <Route path="/" element={<RoomList />} />
+
+                <Route path="/rooms/new" element={<RoomCreate />} />
+
+                <Route path="/rooms/:id" element={<Room />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
             </Routes>
         </Router>
