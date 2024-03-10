@@ -1,38 +1,46 @@
 // Room.js
 
-import { useParams } from 'react-router-dom';
+import { useRef, useEffect } from 'react';
 import SockJS from 'sockjs-client';
-import { useState, useEffect } from 'react';
 import Canvas from './Canvas';
-import Chat from './Chat';
+import {ACCESS_TOKEN} from "../constants";
+
 function Room() {
 
-    const [sock, setSock] = useState();
+    const socket = useRef(null);
 
     useEffect(() => {
-        const socket = new SockJS('/ws');
-        socket.onopen = () => {
-            console.log('connection opened');
+        const token = localStorage.getItem(ACCESS_TOKEN);
+        socket.current = new SockJS('http://localhost:8080/ws', null, {
+            headers: {
+                Authorization: 'Bearer ' + token,
+            }
+        });
+        socket.current.onopen = () => {
+            socket.current.send(JSON.stringify({
+                type: 'auth',
+                token
+            }));
         };
-
-        setSock(socket);
-
         return () => {
-            sock.close();
+            socket.current.close();
         }
     }, []);
 
     const handleDraw = (x, y) => {
         const msg = JSON.stringify({type:'draw', x, y});
-        sock.send(msg);
+        socket.current.send(msg);
     }
 
     return (
         <div>
-            <Canvas onDraw={handleDraw} />
-            <Chat sock={sock} />
+            <Canvas
+                socket={socket.current}
+                onDraw={handleDraw}
+            />
         </div>
     )
+
 }
 
 export default Room;

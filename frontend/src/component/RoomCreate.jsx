@@ -1,15 +1,10 @@
 import React, { useState } from 'react';
+import { createRoom } from "../util/APIUtils";
 
 function RoomCreate() {
     const [title, setTitle] = useState('');
 
-    const handleSubmit = () => {
-        // 백엔드 방 생성 API 요청
-        fetch('/api/rooms', {
-            method: 'POST',
-            body: JSON.stringify({ title })
-        });
-    }
+
 
     return (
         <div>
@@ -17,7 +12,7 @@ function RoomCreate() {
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
             />
-            <button onClick={handleSubmit}>방 만들기</button>
+            <button onClick={createRoom}>방 만들기</button>
         </div>
     );
 }

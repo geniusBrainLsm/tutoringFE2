@@ -10,7 +10,7 @@ function Chat({ socket }) {
         socket.emit('chat', input);
     }
 
-    socket.on('chat', (text) => {
+    socket.onmessage('chat', (text) => {
         setTexts(prev => [...prev, text]);
     });
 

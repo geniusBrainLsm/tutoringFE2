@@ -1,4 +1,4 @@
-import { API_BASE_URL, ACCESS_TOKEN } from '../constants/index';
+ import { API_BASE_URL, ACCESS_TOKEN } from '../constants/index';
 
 const request = (options) => {
     const headers = new Headers({
@@ -54,3 +54,19 @@ export function signUp(signupRequest) {
         body: JSON.stringify(signupRequest)
     });
 }
+
+
+
+ export async function createRoom(title) {
+     const response = await fetch("/api/rooms", {
+         method: "POST",
+         headers: {
+             "Content-Type": "application/json"
+         },
+         body: JSON.stringify({
+             title: title // 문자열만
+         })
+     });
+
+     return response;
+ }

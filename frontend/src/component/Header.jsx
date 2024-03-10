@@ -32,7 +32,7 @@ function Header(props){
                                     마이페이지
                                 </Button>
                                 <SignInModal show={modalShowSignIn} onHide={() => setModalShowSignIn(false)} />
-                                <Button variant="success" onClick={() => setModalShowSingUp(true)}>
+                                <Button variant="success" onClick={() => props.onLogout}>
                                     로그아웃
                                 </Button>
                                 <SignUpModal show={modalShowSingUp} onHide={() => setModalShowSingUp(false)} />
