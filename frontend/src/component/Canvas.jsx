@@ -28,7 +28,7 @@ function Canvas({ socket }) {
                 y: e.offsetY,
             });
             socket.send(message); // 서버로 메시지 전송
-
+            console.log("sended coordinate")
             ctx.lineTo(e.offsetX, e.offsetY);
             ctx.stroke();
         }
