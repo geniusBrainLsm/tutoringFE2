@@ -47,7 +47,7 @@ function App() {
 
                 <Route path="/rooms/new" element={<RoomCreate />} />
 
-                <Route path="/rooms/:id" element={<Room />} />
+                <Route path="/room/:id" element={<Room />} />
                 <Route path="/oauth2/redirect" element={<OAuth2RedirectHandler />} />
             </Routes>
         </Router>

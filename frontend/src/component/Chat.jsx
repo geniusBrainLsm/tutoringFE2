@@ -1,72 +1,62 @@
 import React, { useState, useEffect, useRef } from 'react';
 import SockJS from 'sockjs-client';
 import { Stomp } from "@stomp/stompjs";
-import '../css/chat.css'; // 적절한 CSS 스타일링 경로로 바꾸세요
+import '../css/chat.css';
 
 const colors = [
     '#2196F3', '#32c787', '#00BCD4', '#ff5652',
     '#ffc107', '#ff85af', '#FF9800', '#39bbb0'
 ];
 
-function Chat({username}) {
-
+function Chat({ username }) {
     const [connected, setConnected] = useState(false);
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const stompClient = useRef(null);
 
     useEffect(() => {
+        const socket = new SockJS('http://localhost:8080/ws');
+        const stompClient = Stomp.over(socket);
+
+        const onConnected = () => {
+            setConnected(true);
+            stompClient.subscribe('/topic/public', onMessageReceived);
+            stompClient.send("/app/adduser", {}, JSON.stringify({ type: 'JOIN' }));
+        };
+
+        const onError = (error) => {
+            console.log('Could not connect to WebSocket server. Please refresh this page to try again!', error);
+        };
+
+        stompClient.connect({}, onConnected, onError);
+        stompClient.current = stompClient;
+
         return () => {
             if (stompClient.current !== null) {
-                //stompClient.current.disconnect();
+                stompClient.current.disconnect();
             }
-            const socket = new SockJS('http://localhost:8080/ws');
-            stompClient.current = Stomp.over(socket);
-            stompClient.current.connect({}, onConnected, onError)
         };
     }, []);
 
-    const connect = (event) => {
-        event.preventDefault();
-        if (username.trim()) {
-            const socket = new SockJS('http://localhost:8080/ws');
-            stompClient.current = Stomp.over(socket);
-            stompClient.current.connect({}, onConnected, onError);
-        }
-    };
-
-    const onConnected = () => {
-        setConnected(true);
-        stompClient.current.subscribe('/topic/public', onMessageReceived);
-        console.log("구독됌");
-        stompClient.current.send("/app/chatAddUser",
-            {},
-            JSON.stringify({ type: 'JOIN' })
-        );
-    };
-
-    const onError = (error) => {
-        console.log('Could not connect to WebSocket server. Please refresh this page to try again!', error);
-    };
 
     const sendMessage = (event) => {
         event.preventDefault();
-        console.log("실행됐다.")
+        console.log("실행됐다.");
         if (message.trim() && stompClient.current) {
             const chatMessage = {
                 sender: username,
                 content: message,
-                type: 'CHAT'
             };
-            stompClient.current.send("/app/chatSendMessage", {}, JSON.stringify(chatMessage));
+            stompClient.current.send("/app/chat", {}, JSON.stringify(chatMessage));
             setMessage('');
         }
     };
 
     const onMessageReceived = (payload) => {
-        console.log("리시브");g
+        console.log("리시브");
         const message = JSON.parse(payload.body);
-        setMessages(messages => [...messages, message]);
+        setMessages(prevMessages => [...prevMessages, message]);
+        //...은 기존배열에 추가하는거. add같은거
     };
 
     const getAvatarColor = (messageSender) => {
@@ -79,7 +69,7 @@ function Chat({username}) {
 
     return (
         <div>
-            { (
+            {connected && (
                 <div id="chat-page">
                     <div className="chat-container">
                         <div className="chat-header">
